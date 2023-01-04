@@ -7,8 +7,7 @@ class App extends React.Component {
 
     this.state = {
       mount: true,
-      ignoreProp: 0,
-      seed: 0
+      ignoreProp: 0
     }
 
     this.mountCounter = () => this.setState({ mount: true })

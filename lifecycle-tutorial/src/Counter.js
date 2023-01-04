@@ -1,13 +1,16 @@
 import React from 'react'
 
-const errorComponent = () => <div>{props.ignore}</div>
+//const errorComponent = () => <div>{props.ignore}</div>
 
 export default class Counter extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            counter: 0
+            counter: 0,
+            seed: 0,
+            initializing: true
+
         }
         this.increment = () => this.setState({ counter: this.state.counter + 1 })
         this.decrement = () => this.setState({ counter: this.state.counter - 1 })
@@ -17,7 +20,7 @@ export default class Counter extends React.Component {
         if (props.seed && state.seed !== props.seed) {
             return {
                 seed: props.seed,
-                counter: props.seed
+                counter: props.seed,
             }
         }
         return null;
@@ -25,6 +28,9 @@ export default class Counter extends React.Component {
 
     componentDidMount() {
         console.log('Component Did Mount');
+        setTimeout(() => {
+            this.setState({ initializing: false })
+        }, 500)
         console.log('---------------------------');
     }
     shouldComponentUpdate(nextProps, nextState) {
@@ -43,12 +49,19 @@ export default class Counter extends React.Component {
         return null
     }
     render() {
+        console.log('Render')
+        if (this.state.initializing) {
+            return (
+                <div>"Initializing..."</div>
+            )
+        }
+        /*
         console.log('Render', this.state.error);
         if (this.state.error) {
             return (
                 <div>We Have Encountered An Error!</div>
             )
-        }
+        } */
         return (
 
             <div id='counter'>
@@ -59,7 +72,6 @@ export default class Counter extends React.Component {
                 <div className='counter'>
                     Counter: {this.state.counter}
                 </div>
-                <errorComponent />
             </div>
         )
     }
