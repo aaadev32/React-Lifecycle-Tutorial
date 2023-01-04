@@ -1,7 +1,6 @@
 import React from 'react'
 
-//commented out code is mostly things that do not work the same as the tutorial because of differences in react versions (video is 4 years old)
-//const ErrorComponent = () => <div>{props.ignore}</div>
+const errorComponent = () => <div>{props.ignore}</div>
 
 export default class Counter extends React.Component {
     constructor(props) {
@@ -45,11 +44,11 @@ export default class Counter extends React.Component {
     }
     render() {
         console.log('Render', this.state.error);
-
-       /* if (this.state.error) {
-            return <div>We Have Encountered An Error! {this.state.error.message}</div>
-
-        } */
+        if (this.state.error) {
+            return (
+                <div>We Have Encountered An Error!</div>
+            )
+        }
         return (
 
             <div id='counter'>
@@ -60,6 +59,7 @@ export default class Counter extends React.Component {
                 <div className='counter'>
                     Counter: {this.state.counter}
                 </div>
+                <errorComponent />
             </div>
         )
     }
@@ -71,8 +71,8 @@ export default class Counter extends React.Component {
         console.log('Component Will Unmount');
         console.log('---------------------------');
     }
-   /* componentDidCatch(error, info) {
+    componentDidCatch(error, info) {
         console.log('Component Did Catch');
         this.setState({ error, info })
-    }*/
+    }
 }
